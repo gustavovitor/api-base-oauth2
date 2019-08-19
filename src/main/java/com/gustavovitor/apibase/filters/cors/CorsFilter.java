@@ -18,7 +18,7 @@ public class CorsFilter implements Filter {
     @Autowired
     private APIProperty apiProperty;
 
-    private String allowOrigin;
+    private String[] allowOrigin;
 
     /* Neste método, interceptamos todas as requisições e adicionamos alguns headers conforme o necessário.
      * Por exemplo, temos o Allow-Origim para a origem da requisição. Também é possível colocar para todas as
@@ -28,10 +28,19 @@ public class CorsFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) rq;
         HttpServletResponse response = (HttpServletResponse) rp;
 
-        response.setHeader("Access-Control-Allow-Origin", allowOrigin);
         response.setHeader("Access-Control-Allow-Credentials", "true");
 
-        if("OPTIONS".equals(request.getMethod()) && allowOrigin.equals(request.getHeader("Origin"))){
+        Boolean _originAccepted = false;
+        /* Implementação para aceitar multiplas origens. */
+        for (String origin : allowOrigin) {
+            _originAccepted = origin.equals(request.getHeader("Origin"));
+            if (_originAccepted) {
+                response.setHeader("Access-Control-Allow-Origin", origin);
+                break;
+            }
+        }
+
+        if("OPTIONS".equals(request.getMethod()) && _originAccepted){
             response.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT, OPTIONS");
             response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");
             response.setHeader("Access-Control-Max-Age", "3600");

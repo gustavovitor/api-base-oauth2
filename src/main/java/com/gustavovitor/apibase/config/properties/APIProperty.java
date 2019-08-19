@@ -12,13 +12,13 @@ public class APIProperty {
 
     public static class Security{
         private boolean enableHttps;
-        private String allowOrigin;
+        private String[] allowOrigin;
 
         public void setEnableHttps(boolean enableHttps) {
             this.enableHttps = enableHttps;
         }
 
-        public void setAllowOrigin(String allowOrigin) {
+        public void setAllowOrigin(String[] allowOrigin) {
             this.allowOrigin = allowOrigin;
         }
 
@@ -26,7 +26,7 @@ public class APIProperty {
             return enableHttps;
         }
 
-        public String getAllowOrigin() {
+        public String[] getAllowOrigin() {
             return allowOrigin;
         }
     }
