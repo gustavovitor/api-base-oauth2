@@ -1,8 +1,8 @@
 CREATE SCHEMA security;
 
-CREATE SEQUENCE user_id_sequence INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
+CREATE SEQUENCE security.users_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
 CREATE TABLE security.users (
-  id BIGINT NOT NULL DEFAULT nextval('user_id_sequence'::regclass),
+  id BIGINT NOT NULL DEFAULT nextval('security.users_id_seq'::regclass),
   "username" VARCHAR(128) NOT NULL,
   email VARCHAR(256) NOT NULL,
   pass VARCHAR(128) NOT NULL,
@@ -11,9 +11,9 @@ CREATE TABLE security.users (
   CONSTRAINT users_email_ukey UNIQUE (email)
 );
 
-CREATE SEQUENCE permission_id_sequence INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
+CREATE SEQUENCE security.permissions_list_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
 CREATE TABLE security.permissions_list (
-  id BIGINT NOT NULL DEFAULT nextval('permission_id_sequence'::regclass),
+  id BIGINT NOT NULL DEFAULT nextval('security.permissions_list_id_seq'::regclass),
   description VARCHAR(124) NOT NULL,
   CONSTRAINT permissions_pkey PRIMARY KEY (id),
   CONSTRAINT permissions_ukey UNIQUE (description)
