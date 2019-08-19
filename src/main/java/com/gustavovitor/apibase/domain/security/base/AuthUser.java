@@ -26,6 +26,7 @@ public class AuthUser implements Serializable {
 
     @NotNull
     @Size(min = 3, max = 128)
+    @Column(name = "username")
     private String user;
 
     @Email

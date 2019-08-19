@@ -3,11 +3,11 @@ CREATE SCHEMA security;
 CREATE SEQUENCE user_id_sequence INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
 CREATE TABLE security.users (
   id BIGINT NOT NULL DEFAULT nextval('user_id_sequence'::regclass),
-  "user" VARCHAR(128) NOT NULL,
+  "username" VARCHAR(128) NOT NULL,
   email VARCHAR(256) NOT NULL,
   pass VARCHAR(128) NOT NULL,
   CONSTRAINT users_pkey PRIMARY KEY (id),
-  CONSTRAINT users_ukey UNIQUE ("user"),
+  CONSTRAINT users_ukey UNIQUE ("username"),
   CONSTRAINT users_email_ukey UNIQUE (email)
 );
 
@@ -34,7 +34,7 @@ INSERT INTO security.permissions_list (description) VALUES ('READ_USERS');
 INSERT INTO security.permissions_list (description) VALUES ('WRITE_USERS');
 INSERT INTO security.permissions_list (description) VALUES ('DELETE_USERS');
 
-INSERT INTO security.users ("user", email, pass) VALUES ('admin', 'admin@admin.com', '$2a$10$1jH42s1Czqzj/erhy0iFA.nMRqqpcs3WBn8mC10Pev.Dkx9ZeHOzK');
+INSERT INTO security.users ("username", email, pass) VALUES ('admin', 'admin@admin.com', '$2a$10$1jH42s1Czqzj/erhy0iFA.nMRqqpcs3WBn8mC10Pev.Dkx9ZeHOzK');
 
 INSERT INTO security.users_permissions (user_id, permission_id) VALUES (1, 1);
 INSERT INTO security.users_permissions (user_id, permission_id) VALUES (1, 2);
