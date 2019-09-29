@@ -2,7 +2,7 @@ package com.gustavovitor.apibase.service.security;
 
 import com.gustavovitor.apibase.domain.security.base.AuthUser;
 import com.gustavovitor.apibase.domain.security.base.SystemUser;
-import com.gustavovitor.apibase.repository.user.UserRepository;
+import com.gustavovitor.apibase.repository.user.AuthUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,14 +21,14 @@ import java.util.Set;
 public class AppUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private AuthUserRepository authUserRepository;
 
     /** loadUserByUsername carrega o usuário a partir do nome de usuário para que o WebSecutiry configuration consiga usá-lo.
      * @param s username do usuário.
      * @return UserDetails com o usuário/permissões atrelados. */
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        AuthUser user = userRepository.findByUser(s).orElseThrow(() -> new UsernameNotFoundException("Usuário e/ou senha inválido(a)."));
+        AuthUser user = authUserRepository.findByUser(s).orElseThrow(() -> new UsernameNotFoundException("Usuário e/ou senha inválido(a)."));
         return new SystemUser(user, getPermissoes(user));
     }
 

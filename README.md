@@ -11,3 +11,9 @@ With followed header <strong>Content-Type: application/x-www-form-urlencoded</st
 <strong>password:</strong> 1 <br/>
 <strong>grant_type:</strong> password <br/>
 <br/><strong>Token Revoke:</strong> localhost:8080/token/revoke
+
+# Service Maker and Resource Maker
+This API can made an service and a resource using ResourceMaker and ServiceMaker.
+
+Pageable example params:
+?pageable&page=0&size=5&sort=id,desc

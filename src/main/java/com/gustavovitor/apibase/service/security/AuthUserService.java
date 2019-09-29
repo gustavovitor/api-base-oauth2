@@ -3,8 +3,8 @@ package com.gustavovitor.apibase.service.security;
 import com.gustavovitor.apibase.domain.security.base.AuthUser;
 import com.gustavovitor.apibase.domain.security.base.Permission;
 import com.gustavovitor.apibase.repository.permission.PermissionRepository;
-import com.gustavovitor.apibase.repository.user.UserRepository;
-import org.bouncycastle.openssl.PasswordException;
+import com.gustavovitor.apibase.repository.user.AuthUserRepository;
+import com.gustavovitor.apibase.service.maker.ServiceMaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,21 +14,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AuthUserService {
-
-    @Autowired
-    private UserRepository userRepository;
+public class AuthUserService extends ServiceMaker<AuthUserRepository, AuthUser> {
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Autowired
     private PermissionRepository permissionRepository;
 
+    @Override
     public AuthUser insert(AuthUser user) {
         user.setId(null);
         user.setPass(encoder.encode(user.getPass()));
         setDefaultUserPermissions(user);
-        return userRepository.save(user);
+        return super.insert(user);
     }
 
     private void setDefaultUserPermissions(AuthUser user) {
