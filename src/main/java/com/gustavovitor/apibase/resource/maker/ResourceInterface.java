@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface ResourceInterface<S extends ServiceMaker, T> {
+    public ResponseEntity<T> findById(Long objectId);
+
     public ResponseEntity<List<T>> findAll();
 
     public ResponseEntity<Page<T>> findAllPageable(Pageable pageable);
